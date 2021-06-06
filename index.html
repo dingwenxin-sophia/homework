@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .fl {
+        display: flex;
+        align-items: center;
+      }
+
+      .fl-c {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .fl-b {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .lyrics::-webkit-scrollbar {
+        width: 5px;
+        height: 1px;
+      }
+
+      .lyrics::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        background: #e7c3c3c2;
+      }
+
+      .lyrics::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: #ededed00;
+      }
+
+      header {
+        height: 50px;
+        background: #000;
+        padding: 0 40px;
+        color: #fff;
+        min-width: 1200px;
+      }
+
+      .left-h {
+        width: 500px;
+        height: 100%;
+      }
+
+      .logo-wap {
+        width: 106px;
+        height: 100%;
+        background: url(./images/4.jpg);
+      }
+
+      .right-h {
+        width: 660px;
+        font-size: 13px;
+        color: rgb(226, 215, 215);
+      }
+
+      .item-r {
+        margin-right: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .item-h {
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .item-h:hover,
+      .item-r:hover {
+        color: rgb(231, 163, 17);
+      }
+
+      .icon-r {
+        width: 15px;
+        height: 15px;
+        background: url(./images/sing.png);
+        margin-right: 5px;
+      }
+
+      .icon-r-t {
+        width: 25px;
+        height: 25px;
+        background: url(./images/top.png);
+        background-size: 100% 100%;
+      }
+
+      .search {
+        width: 185px;
+        height: 27px;
+        background-color: #333;
+        border-radius: 20px;
+      }
+
+      .search input {
+        background: none;
+        border: none;
+        outline: none;
+        width: 130px;
+        color: #fff;
+      }
+
+      .s-icon {
+        width: 20px;
+        height: 20px;
+        background: url(./images/search.png);
+        background-size: 100% 100%;
+      }
+
+      .container {
+        width: 1200px;
+        margin: 0 auto;
+      }
+
+      .sing-text {
+        width: 750px;
+        text-align: center;
+        padding: 30px 0 0 0;
+      }
+
+      .sing-des {
+        border-bottom: 1px solid rgba(107, 94, 94, 0.151);
+      }
+
+      .lyrics {
+        padding: 20px 0 0;
+        font-size: 13px;
+        color: #333;
+        line-height: 30px;
+        height: 400px;
+        overflow-y: scroll;
+      }
+
+      .sing-control {
+        width: 450px;
+      }
+
+      .img {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        border: 1px solid rgb(179, 165, 165);
+        margin: 0 auto 30px;
+        background: url(./images/1.jpg);
+        background-size: 100% 100%;
+      }
+
+      .ac {
+        animation: spin infinite 10s linear;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .play-btn {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+      }
+
+      .play-btn img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .loadign-wap {
+        width: 300px;
+        height: 4px;
+        background: #cccccc;
+        margin: 0 10px;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .loading {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 0px;
+        background: #565990;
+        transition: all 0.1s;
+      }
+
+      .loading::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: -5px;
+        transform: translate(0, -50%);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgb(247, 178, 5);
+      }
+
+      .time {
+        font-size: 12px;
+        color: rgb(148, 135, 135);
+      }
+
+      .sound {
+        margin: 0 0 0 8px;
+        cursor: pointer;
+      }
+
+      .download {
+        padding: 5px 0;
+        width: 200px;
+        margin: 20px auto;
+        background: #565990;
+        border-radius: 20px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      .pinglun {
+        width: 800px;
+        margin: 30px auto 30px;
+      }
+
+      .pinglun .tit {
+        border-bottom: 1px solid rgba(51, 51, 51, 0.178);
+        padding: 0 0 20px 0;
+      }
+      .pinglun .tit p:last-child {
+        font-size: 12px;
+        margin: 0 0 0 10px;
+      }
+
+      .inp-wap {
+        align-items: flex-start;
+        margin: 20px 0 0;
+      }
+
+      .usser-img {
+        width: 50px;
+        height: 50px;
+        background: url(./images/6.jpg);
+        background-size: 100% 100%;
+      }
+
+      .input p {
+        font-size: 12px;
+      }
+      .input {
+        width: 730px;
+      }
+
+      .expression {
+        width: 35px;
+        height: 35px;
+        background: url(./images/exp.png);
+        background-size: 100% 100%;
+        cursor: pointer;
+      }
+
+      textarea {
+        box-sizing: border-box;
+        resize: none;
+        width: 730px;
+        height: 130px;
+        border: 1px solid rgba(51, 51, 51, 0.185);
+        border-radius: 10px;
+        padding: 10px;
+        outline: none;
+      }
+
+      .pl-btn {
+        background: rgb(231, 163, 17);
+        padding: 5px 20px;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        margin-left: 20px;
+      }
+
+      .out-put .content {
+        padding: 10px 0;
+        word-break: break-all;
+      }
+      .out-put {
+        width: 730px;
+      }
+
+      .pl-page {
+        margin: 30px 0 10px;
+      }
+
+      .page-up,
+      .page-down,
+      .page-num {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgb(236, 230, 230);
+        margin: 0 5px;
+        cursor: pointer;
+      }
+
+      .page-down {
+        transform: rotate(180deg);
+      }
+
+      .page-up img,
+      .page-down img,
+      .page-num img {
+        width: 50%;
+        height: 50%;
+      }
+
+      .page-ac {
+        color: #fff;
+        background: rgb(231, 163, 17);
+      }
+
+      .msg-wap .user-img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+
+      .msg-con p {
+        font-size: 12px;
+      }
+      .msg-con {
+        width: 170px;
+        height: 60px;
+        background: #d8d9eb;
+        padding: 0 30px;
+        margin-left: 20px;
+        border-radius: 15px;
+        position: relative;
+      }
+
+      .msg-con::before {
+        content: "";
+        position: absolute;
+        left: -10px;
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-right: 20px solid #d8d9eb;
+        border-bottom: 10px solid transparent;
+      }
+
+    </style>
+  </head>
+  <body>
+    <header class="fl-b">
+      <div class="left-h fl-b">
+        <div class="logo-wap"></div>
+        <div class="item-h">首页</div>
+        <div class="item-h">榜单</div>
+        <div class="item-h">歌手</div>
+        <div class="item-h">下载酷我客户端</div>
+      </div>
+      <div class="right-h fl">
+        <div class="item-r fl-c">
+          <div class="icon-r"></div>
+          <div>美女秀</div>
+        </div>
+        <div class="item-r fl-c">
+          <div class="icon-r"></div>
+          <div>酷我耳机</div>
+        </div>
+        <div class="item-r fl-c">
+          <div class="icon-r"></div>
+          <div>VIP会员</div>
+        </div>
+        <div class="item-r fl-c">
+          <div class="icon-r"></div>
+          <div>i听</div>
+        </div>
+        <div class="item-r fl-c">
+          <div>更多服务</div>
+        </div>
+        <div class="item-r fl-c">
+          <div>登录</div>
+        </div>
+        <div class="item-r fl-c">
+          <div class="icon-r-t"></div>
+        </div>
+        <div class="search fl-c">
+          <input type="text" name="" id="" placeholder="找到好音乐" />
+          <div class="s-icon"></div>
+        </div>
+      </div>
+    </header>
+    <div class="container fl-b">
+      <div class="sing-text">
+        <div class="sing-des">
+          <p style="font-size: 25px; margin: 30px">喜羊羊</p>
+          <p style="font-size: 13px; color: 333">
+            专辑：<span style="color: rgb(231, 163, 17); padding-right: 20px"
+              >儿歌大全</span>
+            歌手：<span style="color: rgb(231, 163, 17); padding-right: 20px"
+              >华语群星</span>
+            分享<span style="color: rgb(231, 163, 17); padding: 0 20px"
+              >评论</span>
+          </p>
+          <p style="font-size: 13px; margin: 10px 0">
+            上传时间：2015-10-02 歌曲来源：民大相思湖网球社
+          </p>
+        </div>
+        <div class="lyrics">
+          <p>喜羊羊 - 别看我只是一只羊</p>
+          <p>词：古倩敏</p>
+          <p>曲：古倩敏</p>
+          <p>喜羊羊美羊羊懒羊羊沸羊羊</p>
+          <p>慢羊羊软绵绵红太狼灰太狼</p>
+          <p>别看我只是一只羊</p>
+          <p>绿草因为我变的更香</p>
+          <p>天空因为我变的更蓝</p>
+          <p>白云因为我变的柔软</p>
+          <p>别看我只是一只羊</p>
+          <p>羊儿的聪明难以想像</p>
+          <p style="color: rgb(231, 163, 17)">天再高心情一样奔放</p>
+          <p>每天都追赶太阳</p>
+          <p>有什么难题去牵绊我都不会去心伤</p>
+          <p>有什么危险在我面前也不会去慌乱</p>
+          <p>就算有狼群把我追捕也当做游戏一场</p>
+          <p>在什么时间都爱开心笑容都会飞翔</p>
+          <p>就算会摔倒站得起来永远不会沮丧</p>
+          <p>在所有天气拥有叫人大笑的力量</p>
+          <p>虽然我只是羊</p>
+          <p>喜羊羊美羊羊懒羊羊沸羊羊</p>
+          <p>慢羊羊软绵绵红太狼灰太狼</p>
+        </div>
+      </div>
+      <div class="sing-control">
+        <div class="img"></div>
+        <div class="control fl-c">
+          <div class="fl">
+            <div class="play-btn">
+              <img id="playIcon" src="./images/play.png" alt="" />
+            </div>
+            <div class="loadign-wap">
+              <div class="loading"></div>
+            </div>
+            <div class="time">00.00</div>
+            <div class="sound">
+              <img id="soundStatus" src="./images/jyn.png" width="20" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="download fl-c">
+          <div class="icon">
+            <img src="./images/download.png" width="15px" alt="" />
+          </div>
+          <div>免费下载这首歌</div>
+        </div>
+        <div class="msg-wap fl-c">
+          <div class="fl-c">
+            <div class="user-img fl-c">
+              <img src="./images/6.jpg" alt="">
+            </div>
+            <div class="msg-con fl-b">
+              <div>
+                <p style="color: rgba(51, 51, 51, 0.5);">郭子仪--H5班</p>
+                <p style="color: rgb(34, 81, 124);">喜羊羊与灰太狼</p>
+              </div>
+              <div>
+                <p style="opacity: 0;">1</p>
+                <p style="color: rgb(87, 44, 167);">去现场></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pinglun">
+      <div class="tit fl">
+        <p>评论</p>
+        <p><span id="pinglunNum">0</span>条评论</p>
+      </div>
+      <div class="inp-wap fl-b">
+        <div class="usser-img"></div>
+        <div class="input">
+          <textarea
+            name=""
+            id="plCotent"
+            placeholder="分享你的音乐见解"
+          ></textarea>
+          <div class="fl-b">
+            <div class="expression"></div>
+            <div class="fl">
+              <p>已输入<span id="plNum">0</span>个字</p>
+              <div class="pl-btn">评论</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tit fl" style="margin-top: 50px">
+        <p>精彩评论</p>
+        <p></p>
+      </div>
+      <div id="plList"></div>
+      <div class="fl-c">
+        <div class="pl-page fl">
+          <div class="page-up fl-c">
+            <img src="./images/left.png" alt="" />
+          </div>
+          <div id="pageNumWap" class="fl">
+
+          </div>
+          <div class="page-down fl-c">
+            <img src="./images/left.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <audio id="audio" src="./sing.mp3"></audio>
+  </body>
+  <script>   
+    let isPlay = false
+    let isSound = true
+    let sing = document.querySelector('#audio')
+    let soundBtn = document.querySelector('.sound')
+    let playBtn = document.querySelector('.play-btn')
+    let timeDom = document.querySelector('.time')
+    let singImg = document.querySelector('.img')
+    let timeS = 0
+    let timeM = 0
+    let textTimer = null
+    playBtn.onclick = () => {
+        if (isPlay) {
+            sing.pause()
+            singImg.classList.remove('ac')
+            document.getElementById('playIcon').src = './images/play.png'
+        } else {
+            sing.play()
+            singImg.classList.add('ac')
+            document.getElementById('playIcon').src = './images/pause.png'
+        }
+        isPlay = !isPlay
+    }
+    soundBtn.onclick = () => {
+        if (isSound) {
+            document.getElementById('soundStatus').src = './images/jy.png'
+        } else {
+            document.getElementById('soundStatus').src = './images/jyn.png'
+        }
+        isSound = !isSound
+        sing.muted = !isSound
+    }
+    sing.onplay = (e) => {
+        console.dir(e.target)
+        playAudio(e)
+    }
+    function playAudio(e) {
+
+        textTimer = setInterval(() => {
+            if (timeS < 60) {
+                timeS += 1
+            } else {
+                timeS = 0
+                timeM += 1
+            }
+
+            timeDom.innerHTML = `0${timeM}:${timeS}`
+
+            console.log(sing.currentTime)
+
+            document.querySelector('.loading').style.width = sing.currentTime / sing.duration * 300 + 'px'
+        }, 1000);
+    }
+
+    sing.onpause = (e) => {
+        clearInterval(textTimer)
+    }
+    // 播放截至
+    sing.onended = () => {
+        timeS = 0
+        timeM = 0
+        isPlay = false
+        isSound = true
+        document.querySelector('.loading').style.width = '0px'
+        clearInterval(textTimer)
+        timeDom.innerHTML = `0${timeM}:${timeS}`
+        singImg.classList.remove('ac')
+        document.getElementById('playIcon').src = './images/play.png'
+    }
+    document.querySelector('.loadign-wap').onclick = (e) => {
+        console.dir(e.offsetX)
+        console.dir(sing.paused)
+        if (sing.paused) {
+            sing.play()
+            singImg.classList.add('ac')
+            document.getElementById('playIcon').src = './images/pause.png'
+            sing.currentTime = e.offsetX / 300 * sing.duration
+            isPlay = true
+            isSound = false
+            if (sing.currentTime < 60) {
+                timeS = parseInt(sing.currentTime)
+            } else {
+                timeS = parseInt(sing.currentTime % 60)
+                timeM = parseInt(sing.currentTime / 60)
+            }
+        } else {
+            sing.currentTime = e.offsetX / 300 * sing.duration
+            if (sing.currentTime < 60) {
+                timeS = parseInt(sing.currentTime)
+            } else {
+                timeS = parseInt(sing.currentTime % 60)
+                timeM = parseInt(sing.currentTime / 60)
+            }
+        }
+
+        document.querySelector('.loading').style.width = e.offsetX + 'px'
+    }
+    // 
+    Date.prototype.format = function (format) {
+        /*
+        * eg:format="yyyy-MM-dd hh:mm:ss";
+        */
+        var o = {
+            "M+": this.getMonth() + 1, // month
+            "d+": this.getDate(), // day
+            "h+": this.getHours(), // hour
+            "m+": this.getMinutes(), // minute
+            "s+": this.getSeconds(), // second
+            "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
+            "S": this.getMilliseconds()
+            // millisecond
+        }
+        if (/(y+)/.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + "")
+                .substr(4 - RegExp.$1.length));
+        }
+        for (var k in o) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] :
+                    ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    }
+    let plValue = document.getElementById('plCotent')
+    let plWap = document.getElementById('plList')
+    let pageWap = document.getElementById('pageNumWap')
+    plValue.oninput = () => {
+        document.getElementById('plNum').innerHTML = plValue.value.length
+    }
+    let defaultPl = [{
+        name: 'gotget',
+        content: '我喜欢很多歌曲，喜欢过很多唱歌的人，哪些有时候不是我的爱好，已经成为了我那段青春的回忆，我下载可以很傲娇',
+        time: '2017-06-03 16:58:02',
+    }, {
+        name: '雅力士多德',
+        content: '学校晚会表演这歌😀',
+        time: '2017-05-14 16:16:53',
+    }]
+    let userPl = []
+    let currentPage = 1
+    let pageSize = 3
+    function initPl() {
+        loadAllPl()
+        loadPageCon()
+        loadDefaultPl(true)
+    }
+    document.querySelector('.pl-btn').onclick = () => {
+        if (plValue.value === '') {
+            alert('评论为空')
+            return
+        }
+        let vote = {}
+        vote.name = '郭子仪'
+        vote.content = plValue.value
+        vote.time = new Date().format("yyyy-MM-dd hh:mm:ss")
+        userPl.push(vote)
+        defaultPl.unshift(vote)
+        loadDefaultPl()
+        loadPageCon()
+        window.localStorage.setItem('pl', JSON.stringify(userPl))
+        plValue.value = ''
+    }
+    function loadAllPl() {
+        let plObj = window.localStorage.getItem('pl')
+        if (!plObj) return
+        userPl = JSON.parse(plObj)
+
+        defaultPl.push(...userPl)
+        console.log(JSON.parse(plObj))
+    }
+    function loadPageCon() {
+        pageWap.innerHTML = ''
+        let pageAll = Math.ceil(defaultPl.length / 3);
+        for (let i = 1; i <= pageAll; i++) {
+            let dom = document.createElement('div')
+            dom.innerHTML = `
+            <div class="page-num fl-c ${i === currentPage ? 'page-ac' : ''}">${i}</div>
+            `
+            pageWap.appendChild(dom)
+        }
+
+    }
+    function loadDefaultPl(first = false) {
+        plWap.innerHTML = ''
+
+        if (first) {
+            defaultPl = defaultPl.reverse()
+        }
+        console.log(defaultPl)
+        let showPl = defaultPl.slice((currentPage - 1) * 3, pageSize * currentPage)
+        console.log(showPl)
+        for (let i = 0; i < showPl.length; i++) {
+            let dom = document.createElement('div')
+            dom.innerHTML = `
+            <div class="inp-wap fl-b">
+              <div class="usser-img"></div>
+              <div class="out-put">
+                <div class="fl-b">
+                  <div style="color: rgb(156, 102, 20)">${showPl[i].name}</div>
+                  <div>分享</div>
+                </div>
+                <div class="content">${showPl[i].content}</div>
+                <div class="fl-b">
+                  <div class="time">${showPl[i].time}</div>
+                  <div class="fl-c">
+                    <div class="fl-c">
+                      <div>666</div>
+                      <div>
+                        <img src="./images/good.png" width="20px" alt="" />
+                      </div>
+                    </div>
+                    <div style="margin-left: 10px">回复</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            `
+            plWap.appendChild(dom)
+        }
+    }
+    document.querySelector('.page-up').onclick = () => {
+        if (currentPage == 1) return
+        currentPage -= 1
+        loadPageCon()
+        loadDefaultPl()
+    }
+    document.querySelector('.page-down').onclick = () => {
+        if (currentPage == Math.ceil(defaultPl.length / 3)) return
+        currentPage += 1
+        loadPageCon()
+        loadDefaultPl()
+    }
+    document.querySelector('#pageNumWap').onclick = (e) => {
+        if (parseInt(e.target.innerHTML)) {
+            currentPage = parseInt(e.target.innerHTML)
+            loadPageCon()
+            loadDefaultPl()
+        }
+    }
+    initPl();
+  </script>
+</html>
